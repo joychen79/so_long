@@ -6,7 +6,7 @@
 /*   By: jingchen <jingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 17:40:56 by jingchen          #+#    #+#             */
-/*   Updated: 2023/07/31 17:59:57 by jingchen         ###   ########.fr       */
+/*   Updated: 2023/07/31 19:56:38 by jingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	check_walls(t_game *game)
 	y = 0;
 	while (game->map[y])
 	{
-		if (ft_strlen (game->map[y]) != game->map_width)
+		if ((int)ft_strlen (game->map[y]) != game->map_width)
 			return (0);
 		else if (y == 0 || game->map[y + 1] == NULL)
 		{
@@ -116,12 +116,21 @@ static void	get_map(t_game *game, int fd)
 	free (file);
 }
 
+/* void	sl_check_file(char *file)
+{
+	char	*file_ext;
+
+	file_ext = ft_strrchr(file, '.');
+	if (!file_ext || ft_strncmp(file_ext, ".ber", ft_strlen(file)) != 0)
+		sl_error(EXTENSION);
+} */
+
 void	read_map(char **argv, t_game *game)
 {
 	int		fd;
 	char	*extension;
 
-	extension = ft_strchr(argv[1], '.');
+	extension = ft_strrchr(argv[1], '.');
 	if (!extension || ft_strncmp(extension, ".ber", ft_strlen(extension)))
 		print_errors("Invalid Map Extension!");
 	fd = open (argv[1], O_RDONLY);

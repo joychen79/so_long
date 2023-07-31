@@ -23,8 +23,8 @@ LIBX_FLAGS			=	-Imlx -lmlx -framework OpenGL -framework AppKit
 all:		$(LIBFT) $(NAME)
 
 $(LIBFT):
-			@make -C libft bonus
-
+			@make -C libft 
+			
 $(NAME):	$(OBJS)
 			@$(CC) $(CFLAGS) $(LIBX_FLAGS) $(OBJS) $(LIBFT_SRC)$(LIBFT) -o $(NAME)
 

@@ -6,7 +6,7 @@
 /*   By: jingchen <jingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 18:01:40 by jingchen          #+#    #+#             */
-/*   Updated: 2023/07/31 19:10:45 by jingchen         ###   ########.fr       */
+/*   Updated: 2023/07/31 19:41:12 by jingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	create_window(t_game *game)
 	int		i;
 	int		j;
 
+	load_image(game);
 	i = 0;
 	while (i < game->map_width)
 	{
