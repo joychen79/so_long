@@ -1,19 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_map.c                                         :+:      :+:    :+:   */
+/*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jingchen <jingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/31 17:40:56 by jingchen          #+#    #+#             */
-/*   Updated: 2023/07/31 17:59:57 by jingchen         ###   ########.fr       */
+/*   Created: 2023/07/10 17:15:01 by jingchen          #+#    #+#             */
+/*   Updated: 2023/07/31 19:29:58 by jingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/libft.h"
 #include "../inc/so_long.h"
 
-static int	check_walls(t_game *game)
+
+/*static void	check_extension(char *mapname)
+{
+		extension = ft_strchr(mapname, '.');
+	if (!extension || ft_strncmp(extension, ".ber", ft_strlen(extension)))
+		print_errors("Invalid Map Extension!");
+}*/
+
+/*static int	check_walls(t_game *game)
 {
 	int	y;
 	int	i;
@@ -56,17 +64,15 @@ static int	check_element(t_game *game, char c)
 		while (game->map[y][i])
 		{
 			if (game->map[y][i] == c)
-				count++;
+			count++;
 			if (game->map[y][i] == 'P')
 			{
 				game->p_y = y;
 				game->p_x = i;
 			}
-			if (game->map[y][i] == 'C')
-				game->n_collect++;
 		i++;
 		}
-	y++;
+		y++;
 	}
 	return (count);
 }
@@ -93,50 +99,38 @@ static int	check_accesible(t_game *game)
 	return (1);
 }
 
-static void	get_map(t_game *game, int fd)
+static void	flood(char **map, int x, int y)
 {
-	char	*file;
-	char	*line;
-	int		i;
+	map[y][x] = 'F';
+	if (map[y + 1][x] != '1' && map[y + 1][x] != 'F')
+		flood(map, x, y + 1);
+	if (map[y - 1][x] != '1' && map[y - 1][x] != 'F')
+		flood(map, x, y - 1);
+	if (map[y][x + 1] != '1' && map[y][x + 1] != 'F')
+		flood(map, x + 1, y);
+	if (map[y][x - 1] != '1' && map[y][x - 1] != 'F')
+		flood(map, x - 1, y);
+}*/
 
-	i = 1;
-	line = get_next_line(fd);
-	while (line)
-	{
-		file = ft_strjoin(file, line);
-		free(line);
-		line = get_next_line(fd);
-		i++;
-	}
-	game->map = ft_split(file, '\n');
-	game->check_map = ft_split(file, '\n');
-	game->map_width = ft_strlen(line);
-	game->map_height = i;
-	free (line);
-	free (file);
-}
 
-void	read_map(char **argv, t_game *game)
+
+#include <fcntl.h>
+int main (int ac, char **av)
 {
-	int		fd;
-	char	*extension;
+	t_game	*game;
+	(void)	ac;
 
-	extension = ft_strchr(argv[1], '.');
-	if (!extension || ft_strncmp(extension, ".ber", ft_strlen(extension)))
-		print_errors("Invalid Map Extension!");
-	fd = open (argv[1], O_RDONLY);
-	if (fd <= 0)
-		print_errors("Map Not Found!");
-	if (read(fd, 0, 1) == 0)
-		print_errors("Empty Map!");
-	get_map(game, fd);
-	if (check_walls(game) != 1 || check_element(game, 'P') != 1
-		|| check_element(game, 'E') != 1
-		|| check_element(game, 'C') < 1
-		|| check_accesible(game) != 1)
-	{
-		if (game)
-			free(game);
-		print_errors("Invalid Map");
-	}
+	game = NULL;
+	if (ac != 2)
+		print_errors("Expected More Information!");
+	game = ft_calloc(1, sizeof(t_game));
+	if (!game)
+		exit(1);
+	else
+		read_map(av, game);
+	game->mlx = mlx_init();
+	game->win = mlx_new_window
+		(game->mlx, game->map_width * 64, game->map_height * 64, "so_long");
+	create_window(game);
+	mlx_loop(game->mlx);
 }
