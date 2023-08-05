@@ -6,7 +6,7 @@
 /*   By: jingchen <jingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 18:42:49 by jingchen          #+#    #+#             */
-/*   Updated: 2023/07/31 17:53:30 by jingchen         ###   ########.fr       */
+/*   Updated: 2023/08/05 18:20:20 by jingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,28 @@ void	print_errors(char *errors)
 	exit(1);
 }
 
-void	flood(char **map, int x, int y)
+
+void	set_player(t_game *game, int *x, int *y, char item)
 {
-	map[y][x] = 'F';
-	if (map[y + 1][x] != '1' && map[y + 1][x] != 'F')
-		flood(map, x, y + 1);
-	if (map[y - 1][x] != '1' && map[y - 1][x] != 'F')
-		flood(map, x, y - 1);
-	if (map[y][x + 1] != '1' && map[y][x + 1] != 'F')
-		flood(map, x + 1, y);
-	if (map[y][x - 1] != '1' && map[y][x - 1] != 'F')
-		flood(map, x - 1, y);
+	int		i;
+	int		j;
+
+	i = 0;
+	while (i < game->map_width)
+	{
+		j = 0;
+		while (j < game->map_height)
+		{
+			if (game->map[j][i] == item)
+			{
+				*x = i;
+				*y = j;
+				return ;
+			}
+			j++;
+		}
+		i++;
+	}
+	*x = -1;
+	*y = -1;
 }

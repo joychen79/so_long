@@ -4,7 +4,8 @@ NAME				=	so_long
 SOLONG_SRC			=	src/so_long.c \
 						src/render_game.c \
 						src/read_map.c \
-						src/utils.c
+						src/utils.c \
+						src/validate_map.c
 
 OBJS				= $(SOLONG_SRC:.c=.o)
 

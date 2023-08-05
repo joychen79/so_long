@@ -6,7 +6,7 @@
 /*   By: jingchen <jingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 13:16:52 by jingchen          #+#    #+#             */
-/*   Updated: 2023/07/31 19:28:03 by jingchen         ###   ########.fr       */
+/*   Updated: 2023/08/05 18:48:13 by jingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <mlx.h>
 # include "../libft/libft.h"
+# include <fcntl.h>
 
 enum e_direction
 {
@@ -33,8 +34,6 @@ typedef struct s_game
 	int		map_height;
 	int		p_x;
 	int		p_y;
-	//int		e_x;
-//	int		e_y;
 	int		n_moves;
 	int		n_collect;
 	void	*mlx;
@@ -49,8 +48,14 @@ typedef struct s_game
 }	t_game;
 
 void	print_errors(char *errors);
+//void	flood(char **map, int x, int y);
+//int		check_walls(t_game *game);
+//int		check_element(t_game *game, char c);
+//int		check_accesible(t_game *game);
+//char	*get_map(t_game *game, int fd);
 void	read_map(char **argv, t_game *game);
-void	flood(char **map, int x, int y);
+void	set_player(t_game *game, int *x, int *y, char item);
 void	create_window(t_game *game);
+void	validate_map(t_game *game);
 
 #endif
