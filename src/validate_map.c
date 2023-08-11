@@ -6,7 +6,7 @@
 /*   By: jingchen <jingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 15:46:13 by jingchen          #+#    #+#             */
-/*   Updated: 2023/08/11 17:38:58 by jingchen         ###   ########.fr       */
+/*   Updated: 2023/08/11 19:24:18 by jingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ static int	check_accesible(t_game *game)
 		x = 0;
 		while (x < game->map_width)
 		{
-			if (game->check_map[y][x] == 'C')
+			if (game->check_map[y][x] == 'C' || game->check_map[y][x] == 'E')
 				return (0);
 			x++;
 		}
