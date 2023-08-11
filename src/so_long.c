@@ -6,7 +6,7 @@
 /*   By: jingchen <jingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 17:15:01 by jingchen          #+#    #+#             */
-/*   Updated: 2023/08/05 18:38:00 by jingchen         ###   ########.fr       */
+/*   Updated: 2023/08/11 15:01:42 by jingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int main (int ac, char **av)
 	game->mlx = mlx_init();
 	game->win = mlx_new_window
 		(game->mlx, game->map_width * 64, game->map_height * 64, "so_long");
-	create_window(game);
+	put_sprites(game);
 	mlx_loop(game->mlx);
 }
 

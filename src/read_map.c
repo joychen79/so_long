@@ -6,7 +6,7 @@
 /*   By: jingchen <jingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 17:40:56 by jingchen          #+#    #+#             */
-/*   Updated: 2023/08/05 18:49:02 by jingchen         ###   ########.fr       */
+/*   Updated: 2023/08/11 15:23:35 by jingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	check_extension(char **argv)
 		print_errors("Invalid Map Extension!");
 }
 
-static char	*get_map(t_game *game, int fd)
+static char	*get_map(int fd)
 {
 	char	*file;
 	char	*line;
@@ -31,7 +31,6 @@ static char	*get_map(t_game *game, int fd)
 	file = ft_calloc(1, 1);
 	if (!file)
 		exit(1);
-	game->map_width = ft_strlen(line);
 	while (line != NULL)
 	{
 		file = ft_strjoin(file, line);
@@ -54,7 +53,7 @@ void	read_map(char **argv, t_game *game)
 		print_errors("Map Not Found!");
 	if (read(fd, 0, 1) == 0)
 		print_errors("Empty Map!");
-	file = get_map(game, fd);
+	file = get_map(fd);
 	close(fd);
 	game->map = ft_split(file, '\n');
 	game->check_map = ft_split(file, '\n');

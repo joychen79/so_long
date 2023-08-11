@@ -6,7 +6,7 @@
 /*   By: jingchen <jingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 15:46:13 by jingchen          #+#    #+#             */
-/*   Updated: 2023/08/05 18:35:02 by jingchen         ###   ########.fr       */
+/*   Updated: 2023/08/11 14:50:03 by jingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ static int	check_walls(t_game *game)
 				i++;
 			}
 		}	
-		else if (game->map[y][0] || game->map[y][game->map_width - 1] != '1')
+		else if (game->map[y][0] != '1'
+				|| game->map[y][game->map_width - 1] != '1')
 			return (0);
 		y++;
 	}
@@ -89,7 +90,7 @@ static int	check_accesible(t_game *game)
 
 	y = 0;
 	i = 0;
-	set_player (game, &game->p_x, &game->p_y, 'P');
+	set_player(game, &game->p_x, &game->p_y, 'P');
 	flood(game->check_map, game->p_x, game->p_y);
 	while (y < game->map_height)
 	{
