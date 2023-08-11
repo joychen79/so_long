@@ -6,7 +6,7 @@
 /*   By: jingchen <jingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 18:42:49 by jingchen          #+#    #+#             */
-/*   Updated: 2023/08/11 15:20:08 by jingchen         ###   ########.fr       */
+/*   Updated: 2023/08/11 18:52:25 by jingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,13 @@ void	set_player(t_game *game, int *x, int *y, char item)
 		}
 		i++;
 	}
-	*x = -1;
-	*y = -1;
+	/**x = -1;
+	*y = -1;*/
+}
+
+int	close_window(t_game *game)
+{
+	mlx_destroy_window(game->mlx, game->win);
+	free(game->map);
+	exit(0);
 }

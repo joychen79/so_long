@@ -6,7 +6,7 @@
 /*   By: jingchen <jingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 17:40:56 by jingchen          #+#    #+#             */
-/*   Updated: 2023/08/11 15:23:35 by jingchen         ###   ########.fr       */
+/*   Updated: 2023/08/11 19:15:37 by jingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	read_map(char **argv, t_game *game)
 {
 	char	*file;
 	int		fd;
-	int		i;
+	int		y;
 
 	check_extension(argv);
 	fd = open (argv[1], O_RDONLY);
@@ -58,9 +58,10 @@ void	read_map(char **argv, t_game *game)
 	game->map = ft_split(file, '\n');
 	game->check_map = ft_split(file, '\n');
 	game->map_width = ft_strlen(*(game->map));
-	i = 0;
-	while (game->map[i++] != NULL)
+	y = 0;
+	while (game->map[y++] != NULL)
 		game->map_height++;
 	validate_map(game);
 	free(file);
 }
+

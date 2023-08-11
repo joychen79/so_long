@@ -6,7 +6,7 @@
 /*   By: jingchen <jingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 15:46:13 by jingchen          #+#    #+#             */
-/*   Updated: 2023/08/11 14:50:03 by jingchen         ###   ########.fr       */
+/*   Updated: 2023/08/11 17:38:58 by jingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 static int	check_walls(t_game *game)
 {
 	int	y;
-	int	i;
+	int	x;
 
 	y = 0;
 	while (game->map[y])
@@ -25,12 +25,12 @@ static int	check_walls(t_game *game)
 			return (0);
 		else if (y == 0 || y == game->map_height - 1)
 		{
-			i = 0;
-			while (game->map[y][i])
+			x = 0;
+			while (game->map[y][x])
 			{
-				if (game->map[y][i] != '1')
+				if (game->map[y][x] != '1')
 					return (0);
-				i++;
+				x++;
 			}
 		}	
 		else if (game->map[y][0] != '1'
@@ -44,26 +44,26 @@ static int	check_walls(t_game *game)
 static int	check_element(t_game *game, char c)
 {
 	int	y;
-	int	i;
+	int	x;
 	int	count;
 
 	y = 0;
 	count = 0;
 	while (game->map[y])
 	{
-		i = 0;
-		while (game->map[y][i])
+		x = 0;
+		while (game->map[y][x])
 		{
-			if (game->map[y][i] == c)
+			if (game->map[y][x] == c)
 				count++;
-			else if (game ->map[y][i] != 'C' && game ->map[y][i] != 'P'
-				&& game ->map[y][i] != 'E' && game ->map[y][i] != '1'
-				&& game ->map[y][i] != '0')
+			else if (game ->map[y][x] != 'C' && game ->map[y][x] != 'P'
+				&& game ->map[y][x] != 'E' && game ->map[y][x] != '1'
+				&& game ->map[y][x] != '0')
 			{
 				print_errors("Map contains inllegal elements");
 				return (0);
 			}
-		i++;
+		x++;
 		}
 	y++;
 	}
@@ -85,21 +85,21 @@ static void	flood(char **map, int x, int y)
 
 static int	check_accesible(t_game *game)
 {
-	int	i;
+	int	x;
 	int	y;
 
 	y = 0;
-	i = 0;
+	x = 0;
 	set_player(game, &game->p_x, &game->p_y, 'P');
 	flood(game->check_map, game->p_x, game->p_y);
 	while (y < game->map_height)
 	{
-		i = 0;
-		while (i < game->map_width)
+		x = 0;
+		while (x < game->map_width)
 		{
-			if (game->check_map[y][i] == 'C')
+			if (game->check_map[y][x] == 'C')
 				return (0);
-			i++;
+			x++;
 		}
 	y++;
 	}

@@ -6,7 +6,7 @@
 /*   By: jingchen <jingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 18:01:40 by jingchen          #+#    #+#             */
-/*   Updated: 2023/08/11 15:22:54 by jingchen         ###   ########.fr       */
+/*   Updated: 2023/08/11 19:13:33 by jingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 	img_height = 64;
 	img_width = 64;
 	game->player = mlx_xpm_file_to_image
-		(game->mlx, "./textures/Crab.xpm", &img_width, &img_height);
+		(game->mlx, "./textures/Mermaid.xpm", &img_width, &img_height);
 	game->background = mlx_xpm_file_to_image
 		(game->mlx, "./textures/Background.xpm", &img_width, &img_height);
 	game->wall = mlx_xpm_file_to_image
@@ -36,41 +36,67 @@ static void	set_image(t_game *game, int j, int i)
 {
 	if (game->map[j][i] == '1')
 		mlx_put_image_to_window
-			(game->mlx, game->win, game->wall, j * 64, i * 64);
+			(game->mlx, game->win, game->wall, i * 64, j * 64);
 	else if (game->map[j][i] == '0')
 		mlx_put_image_to_window
-			(game->mlx, game->win, game->background, j * 64, i * 64);
+			(game->mlx, game->win, game->background, i * 64, j * 64);
 	else if (game->map[j][i] == 'C')
 		mlx_put_image_to_window
-			(game->mlx, game->win, game->collective, j * 64, i * 64);
+			(game->mlx, game->win, game->collective, i * 64, j * 64);
 	else if (game->map[j][i] == 'P')
 		mlx_put_image_to_window
-			(game->mlx, game->win, game->player, j * 64, i * 64);
+			(game->mlx, game->win, game->player, i * 64, j * 64);
 	else if (game->map[j][i] == 'E')
 		mlx_put_image_to_window
-		(game->mlx, game->win, game->exit, j * 64, i * 64);
+		(game->mlx, game->win, game->exit, i * 64, j * 64);
 }
 
-void	create_window(t_game *game)
+static void	move_player(t_game *game, int new_x, int new_y)
+{
+	if (game->map[game->p_y + new_y][game->p_x + new_x] != '1')
+	{
+		ft_printf("%d\n", ++(game->n_moves));
+		set_image(game, game->p_x, game->p_y);
+		set_image(game, game->p_x + new_x, game->p_y + new_y);
+		set_image(game, game->p_x + new_x, game->p_y + new_y);
+		if (game->map[game->p_y + new_y][game->p_x + new_x] == 'C')
+		{
+			game->n_collect--;
+			if (game->n_collect == 0 && game->map[game->p_y][game->p_x] != 'E')
+			{
+				ft_printf("The player has reached the exit. So long!\n");
+				exit(0);
+			}
+		}
+		game->p_x = game->p_x + new_x;
+		game->p_y = game->p_y + new_y;
+		if (game->map[game->p_y][game->p_x] != 'E')
+			game->map[game->p_y][game->p_x] = '0';
+	}
+	printf("yes\n");
+}*/
+
+
+
+/*void	create_window(t_game *game)
 {
 	int		i;
 	int		j;
 
 	load_image(game);
-	i = 0;
-	while (i < game->map_width)
+	j = 0;
+	while (j < game->map_height)
 	{
-		j = 0;
-		while (j < game->map_height)
+		i = 0;
+		while (i < game->map_width)
 		{
-			set_image(game, i, j);
-		j++;
+			set_image(game, j, i);
+		i++;
 		}
-	i++;
+	j++;
 	}
 }*/
-
-void	put_image(t_game *game, int y, int x, char *sprite)
+static void	put_image(t_game *game, int y, int x, char *sprite)
 {
 	char	*path;
 	void	*img;
@@ -85,25 +111,69 @@ void	put_image(t_game *game, int y, int x, char *sprite)
 
 void	put_sprites(t_game *game)
 {
-	int		i;
-	int		j;
+	int		x;
+	int		y;
 
-	j = 0;
-	while (j < game->map_height)
+	y = 0;
+	while (y < game->map_height)
 	{
-		i = 0;
-		while (i < game->map_width)
+		x = 0;
+		while (x < game->map_width)
 		{
-			if (game->map[j][i] == '1')
-				put_image(game, i, j, "wall.xpm");
+			if (game->map[y][x] == '1')
+				put_image(game, x, y, "wall.xpm");
 			else
-				put_image(game, i, j, "background.xpm");
-			if (game->map[j][i] == 'C')
-				put_image(game, i, j, "bottle.xpm");
-			else if (game->map[j][i] == 'P')
-				put_image(game, i, j, "crab.xpm");
-			i++;
+				put_image(game, x, y, "background.xpm");
+			if (game->map[y][x] == 'C')
+				put_image(game, x, y, "bottle.xpm");
+			else if (game->map[y][x] == 'P')
+				put_image(game, x, y, "Mermaid.xpm");
+			else if (game->map[y][x] == 'E')
+				put_image(game, x, y, "Exit.xpm");
+			x++;
 		}
-		j++;
+		y++;
 	}
 }
+
+static void	move_player(t_game *game, int new_x, int new_y)
+{
+	if (game->map[game->p_y + new_y][game->p_x + new_x] != '1')
+	{
+		ft_printf("Moves: %d\n", ++(game->n_moves));
+		put_image(game, game->p_x, game->p_y, "Background.xpm");
+		put_image(game, game->p_x + new_x, game->p_y + new_y, "Background.xpm");
+		put_image(game, game->p_x + new_x, game->p_y + new_y, "Mermaid.xpm");
+		if (game->map[game->p_y + new_y][game->p_x + new_x] == 'C')
+		{
+			game->n_collect--;
+			/*if (game->n_collect == 0)
+				put_image(game, game->e_x, game->e_y, "exit.xpm");*/
+		}
+		game->p_x = game->p_x + new_x;
+		game->p_y = game->p_y + new_y;
+		if (game->map[game->p_y][game->p_x] != 'E')
+			game->map[game->p_y][game->p_x] = '0';
+		else if (game->n_collect == 0 && game->map[game->p_y][game->p_x] == 'E')
+		{
+			ft_printf("\033[0;32mThe player has reached the exit. So long!\n");
+			exit(0);
+		}
+	}
+}
+
+int	event_handler(enum e_direction key, t_game *game)
+{
+	if (key == ESC)
+		close_window(game);
+	else if (key == W)
+		move_player(game, 0, -1);
+	else if (key == A)
+		move_player(game, -1, 0);
+	else if (key == S)
+		move_player(game, 0, 1);
+	else if (key == D)
+		move_player(game, 1, 0);
+	return (0);
+}
+

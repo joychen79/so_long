@@ -6,7 +6,7 @@
 /*   By: jingchen <jingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 13:16:52 by jingchen          #+#    #+#             */
-/*   Updated: 2023/08/11 15:06:55 by jingchen         ###   ########.fr       */
+/*   Updated: 2023/08/11 19:08:45 by jingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,10 @@ void	read_map(char **argv, t_game *game);
 void	set_player(t_game *game, int *x, int *y, char item);
 //void	create_window(t_game *game);
 void	validate_map(t_game *game);
-void	put_image(t_game *game, int y, int x, char *sprite);
+//void	put_image(t_game *game, int y, int x, char *sprite);
 void	put_sprites(t_game *game);
+int		close_window(t_game *game);
+int		event_handler(enum e_direction key, t_game *game);
+//void	move_player(t_game *game, int new_x, int new_y);
 
 #endif
