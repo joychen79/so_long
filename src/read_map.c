@@ -6,7 +6,7 @@
 /*   By: jingchen <jingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 17:40:56 by jingchen          #+#    #+#             */
-/*   Updated: 2023/08/11 19:15:37 by jingchen         ###   ########.fr       */
+/*   Updated: 2023/08/14 17:25:30 by jingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,3 @@ void	read_map(char **argv, t_game *game)
 	validate_map(game);
 	free(file);
 }
-

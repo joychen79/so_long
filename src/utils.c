@@ -6,7 +6,7 @@
 /*   By: jingchen <jingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 18:42:49 by jingchen          #+#    #+#             */
-/*   Updated: 2023/08/11 18:52:25 by jingchen         ###   ########.fr       */
+/*   Updated: 2023/08/14 17:22:52 by jingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ void	print_errors(char *errors)
 	exit(1);
 }
 
-
-void	set_player(t_game *game, int *x, int *y, char item)
+void	set_element(t_game *game, int *x, int *y, char item)
 {
 	int		i;
 	int		j;
@@ -41,8 +40,6 @@ void	set_player(t_game *game, int *x, int *y, char item)
 		}
 		i++;
 	}
-	/**x = -1;
-	*y = -1;*/
 }
 
 int	close_window(t_game *game)

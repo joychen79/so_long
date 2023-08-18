@@ -6,16 +6,14 @@
 /*   By: jingchen <jingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 17:15:01 by jingchen          #+#    #+#             */
-/*   Updated: 2023/08/11 18:54:00 by jingchen         ###   ########.fr       */
+/*   Updated: 2023/08/14 17:26:29 by jingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/libft.h"
 #include "../inc/so_long.h"
 
-# include <fcntl.h>
-
-int main (int ac, char **av)
+int	main(int ac, char **av)
 {
 	t_game	*game;
 
@@ -35,6 +33,3 @@ int main (int ac, char **av)
 	mlx_hook(game->win, 17, 0L, close_window, game);
 	mlx_loop(game->mlx);
 }
-
-
-

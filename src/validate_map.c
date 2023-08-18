@@ -6,7 +6,7 @@
 /*   By: jingchen <jingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 15:46:13 by jingchen          #+#    #+#             */
-/*   Updated: 2023/08/11 19:24:18 by jingchen         ###   ########.fr       */
+/*   Updated: 2023/08/18 13:24:04 by jingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ static int	check_accesible(t_game *game)
 
 	y = 0;
 	x = 0;
-	set_player(game, &game->p_x, &game->p_y, 'P');
 	flood(game->check_map, game->p_x, game->p_y);
 	while (y < game->map_height)
 	{
@@ -108,7 +107,7 @@ static int	check_accesible(t_game *game)
 
 void	validate_map(t_game *game)
 {
-	set_player (game, &game->p_x, &game->p_y, 'P');
+	set_element (game, &game->p_x, &game->p_y, 'P');
 	if (check_walls(game) != 1 || check_element(game, 'P') != 1
 		|| check_element(game, 'E') != 1
 		|| check_element(game, 'C') < 1
@@ -122,19 +121,3 @@ void	validate_map(t_game *game)
 	}
 	game->n_collect = check_element(game, 'C');
 }
-
-	/*if (check_accesible(game) != 1)
-		print_errors("Map is inaccesible.");
-	if (check_walls(game) != 1)
-		print_errors("Map must be rectangular and closed by walls.");
-	if (check_element(game, 'P') != 1)
-		print_errors("Map must have one player starting position.");
-	if (check_element(game, 'E') != 1)
-		print_errors("Map must have one exit.");
-	if (check_element(game, 'C') < 1)
-	{
-		print_errors("Map must have at least one coin.");
-		return(0);
-	}
-	else
-		return (1);*/
